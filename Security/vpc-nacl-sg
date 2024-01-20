@@ -10,4 +10,4 @@ python3
 # now, let's run a simple http server
 
 python3 -m http.server 8000
-# now a simple http server now runs on port 8000
+# a simple http server now runs on port 8000
