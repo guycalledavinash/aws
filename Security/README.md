@@ -10,6 +10,8 @@ Hi, let's see how to allow/disable authorised requests into a VPC using NACL and
 
 3. For the rest, proceed with default settings.
 
-4. It's time to create an EC2 now. Go with ubuntu for convinience. Everything is default, except the network settings. Edit them > custom VPC > select the one we created.
+4. It's time to create an EC2 now. Go with ubuntu for convinience. Everything is default, except the network settings. Edit them > custom VPC > select the one we created. However, AWS creates the security group by default.
 
 ![VPC Settings](https://github.com/guycalledavinash/aws/assets/90386560/3677d1c8-3c2a-4903-8a85-14a50eedee90)
+
+5. To showcase the VPC let's run a python application and run it in port 8000 - [python code]([absolute_url_to_your_file](https://github.com/guycalledavinash/aws/blob/main/Security/vpc-nacl-sg)https://github.com/guycalledavinash/aws/blob/main/Security/vpc-nacl-sg)
