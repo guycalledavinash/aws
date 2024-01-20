@@ -1,1 +1,13 @@
+#  This demo showcases how incoming traffic can we allowed/blocked using AWS NACL and SG
+# OS: Ubuntu
 
+sudo apt update
+# this updates all the packages including python
+
+python3
+# this shows the version, also to confirm its presence here
+# if no, use 'sudo apt install python3' and you'll be good
+# now, let's run a simple http server
+
+python3 -m http.server 8000
+# now a simple http server now runs on port 8000
