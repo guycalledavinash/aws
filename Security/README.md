@@ -14,4 +14,8 @@ Hi, let's see how to allow/disable authorised requests into a VPC using NACL and
 
 ![VPC Settings](https://github.com/guycalledavinash/aws/assets/90386560/3677d1c8-3c2a-4903-8a85-14a50eedee90)
 
-5. To showcase the VPC let's run a python application and run it in port 8000. [Check this out](https://github.com/guycalledavinash/aws/blob/main/Security/vpc-nacl-sg)
+5. To showcase the VPC let's run a simple python application and run it on port 8000. [Check this out](https://github.com/guycalledavinash/aws/blob/main/Security/vpc-nacl-sg)
+
+6. Now let's try accessing this port i.e, https:publicIP:8000, as expected the security group will block the incoming request by default. Check this screenshot.
+
+![site](https://github.com/guycalledavinash/aws/assets/90386560/a1a34b5c-1248-46fd-83b8-4af695082fa0)
