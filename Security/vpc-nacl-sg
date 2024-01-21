@@ -1,4 +1,4 @@
-#  This demo showcases how incoming traffic can we allowed/blocked using AWS NACL and SG
+# This command runs a simple http server using python
 # OS: Ubuntu
 
 sudo apt update
