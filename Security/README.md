@@ -37,3 +37,7 @@ Edit inbound rules > add a rule > allow port 8000
 10. Yay we are through!
 
 ![job](https://github.com/guycalledavinash/aws/assets/90386560/f934aab1-6aa6-4a51-af3f-4226cafe6060)
+
+We can block/unblock traffic from NACL too if there are limitations at SG.
+
+Thanks
