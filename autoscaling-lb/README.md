@@ -1,3 +1,3 @@
 This project demonstrates a production environment where I create a VPC, deploy the servers in two availability Zones using an Auto Scaling group and an Application Load Balancer. To secure the IP addresses, Bashtion host/Jump server comes to rescue. For additional security, the servers are in private subnets, receive requests through the load balancer and can connect to the internet using a NAT gateway. Check the below image for reference. [Source: AWS Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html)
 
-![Blueprint](https://github.com/guycalledavinash/aws/assets/90386560/94babf92-8345-4d68-81bc-c33420540472)
+![Blueprint](https://github.com/guycalledavinash/aws/assets/90386560/6acc1650-d23c-4e4f-8ae3-7282953ca7e0)
