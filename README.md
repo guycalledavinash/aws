@@ -1,1 +1,1 @@
-# Hello there, this repo is for all the AWS projects I do.
+# Hello there, this repo is for all my AWS projects.
