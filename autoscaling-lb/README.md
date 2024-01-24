@@ -27,3 +27,23 @@ Hands-on:
 4. Configure the security settings. Allow default port and a custom port, in my case 8000
 
 ![security](https://github.com/guycalledavinash/aws/assets/90386560/45316229-7edc-47bc-bb0e-afb820b2b1bd)
+
+5. Go to Auto Scaling group home page - step 3, select the launch template from drag down and proceed.
+
+6. Since we are creating the servers in private subnet, select private avilability zones.
+
+![azone](https://github.com/guycalledavinash/aws/assets/90386560/29257d4e-5ef5-455d-abf6-a8753f5cc2c2)
+
+7. Select no LB, it is done seperately later.
+
+8. Select the autoscaling group size. Desired, minimum and maximum based on traffic.
+
+![size](https://github.com/guycalledavinash/aws/assets/90386560/cff173c1-bf56-4781-8267-1ffc14f86e3f)
+
+9. Proceed. It takes a while before creating the instances.
+
+![ins](https://github.com/guycalledavinash/aws/assets/90386560/fd94f82e-11d7-488a-a6df-2ac081e2ef47)
+
+Here we go.
+
+![inst](https://github.com/guycalledavinash/aws/assets/90386560/4e5a3964-4f61-486b-8263-b21853bc0ca5)
