@@ -56,9 +56,13 @@ Here, we login to bashtion host in public IP to connect to servers in private su
 
 ssh -i (pem file location) ubuntu@(public-ip)
 
-For us to access private subnet's ec2 instances, they should have access to public ec2's pem files so we use scp (secure copy) command.
+11. For us to access private subnet's ec2 instances, they should have access to public ec2's pem files so we use scp (secure copy) command. This copies 
 
-scp -i (pem file location) ubuntu@(public ip) 
+scp -i (pem file location) (path to the local file you want to copy) ubuntu@(public ip) 
+
+This copies the pem file to bashtion host. We can now login with private IP of one of the private subnets.
+
+
 
 
 
