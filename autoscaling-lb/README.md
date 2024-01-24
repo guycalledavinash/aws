@@ -48,11 +48,19 @@ Here we go. They're in two private subnets.
 
 ![inst](https://github.com/guycalledavinash/aws/assets/90386560/4e5a3964-4f61-486b-8263-b21853bc0ca5)
 
-# Now it's time to create a Load Balancer. We can't login to these instances yet as there're no public IPs, so we make use of Bashtion Host/Jump Server.
+Now it's time to create a Load Balancer. We can't login to these instances yet as there're no public IPs, so we make use of Bashtion Host/Jump Server.
 
 10. Create a new EC2 for bashtion host using the same VPC, auto-assign public IP, launch.
 
-# Here, we login to bashtion host in public IP to connect to servers in private subnet
+Here, we login to bashtion host in public IP to connect to servers in private subnet
 
-ssh -i (pem location) ubuntu@(public-ip)
+ssh -i (pem file location) ubuntu@(public-ip)
+
+For us to access private subnet's ec2 instances, they should have access to public ec2's pem files so we use scp (secure copy) command.
+
+scp -i (pem file location) ubuntu@(public ip) 
+
+
+
+
 
