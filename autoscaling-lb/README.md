@@ -1,8 +1,8 @@
-This project is a recommended approach which demonstrates a production environment where I create a VPC, deploy the servers in two availability Zones using an Auto Scaling group and an Application Load Balancer. To secure the IP addresses, Bashtion host/Jump server comes to rescue. For additional security, the servers are in private subnets, receive requests through the load balancer and can connect to the internet using a NAT gateway. Checkout the below image for reference. [Source: AWS Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html)
+This project is a POC that demonstrates a production environment. I created a VPC, deployed the applications in two availability zones using an Auto Scaling group and an Application Load Balancer. To tunnel to the application servers I used a bashtion host/Jump server. For additional security, the servers are in private subnets, receive requests through the load balancer and can connect to the internet using a NAT gateway. Checkout the below image for reference. [Source: AWS Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html)
 
 ![Blueprint](https://github.com/guycalledavinash/aws/assets/90386560/6acc1650-d23c-4e4f-8ae3-7282953ca7e0)
 
-In production, we need more than one availaility zone, just if one data center goes down.
+In production, we need more than one availaility zone.
 
 Terminology:
 
@@ -62,10 +62,12 @@ scp -i (pem file location) (path to the local file you want to copy) ubuntu@(pub
 
 This copies the pem file to bashtion host. We can now login with private IP of one of the private subnets.
 
+12. Configure a generic load balancer, enabling incoming traffic
 
+13. Copy the DNS, paste it!
 
+This applies both to microservices architecture and a petty static web application. 
 
-
-
+Thanks
 
 Contributors are welcome
