@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo apt update -y
+sudo apt update
 sudo apt install nginx -y
+echo 'AVINASH - A' >> /var/www/html/index.nginx-debian.html
 sudo systemctl restart nginx
-sudo systemctl enable nginx
-echo "<h1>AVINASH - A</h1>" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+sudo systemctl start nginx
