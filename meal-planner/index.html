@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Based Meal Planner</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { text-align: center; color: #4CAF50; }
+    label { font-size: 16px; }
+    input[type="text"] { width: 100%; padding: 8px; margin: 10px 0; }
+    button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #45a049; }
+    .results { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>AI-Based Meal Planner</h1>
+  
+  <div>
+    <label for="ingredients">Enter your ingredients (separate by commas):</label>
+    <input type="text" id="ingredients" name="ingredients" placeholder="e.g. eggs, tomatoes, spinach">
+    <button onclick="getRecipes()">Get Meal Suggestions</button>
+  </div>
+
+  <div class="results">
+    <h3>Suggested Recipes:</h3>
+    <ul id="recipe-list"></ul>
+  </div>
+
+  <script>
+    async function getRecipes() {
+      const ingredients = document.getElementById('ingredients').value;
+      
+      // Validate input
+      if (!ingredients) {
+        alert('Please enter some ingredients');
+        return;
+      }
+
+      // API Gateway endpoint (replace with your actual endpoint)
+      const apiEndpoint = 'https://YOUR_API_GATEWAY_URL_HERE';
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ingredients: ingredients })
+      });
+
+      if (!response.ok) {
+        alert('Error fetching recipes. Please try again.');
+        return;
+      }
+
+      const data = await response.json();
+      
+      // Clear previous results
+      const recipeList = document.getElementById('recipe-list');
+      recipeList.innerHTML = '';
+
+      // Display recipes
+      if (data.recipes && data.recipes.length > 0) {
+        data.recipes.forEach(recipe => {
+          const li = document.createElement('li');
+          li.textContent = recipe;
+          recipeList.appendChild(li);
+        });
+      } else {
+        recipeList.innerHTML = '<li>No recipes found</li>';
+      }
+    }
+  </script>
+
+</body>
+</html>
