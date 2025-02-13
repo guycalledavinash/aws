@@ -36,8 +36,26 @@ def lambda_handler(event, context):
 
             return {"statusCode": 200, "body": json.dumps(f"Item added successfully to {table_name}")}
 
+        elif operation == "get":
+            table_name = payload.get("TableName", "")
+            key = payload.get("Key", {})
+
+            if not table_name or not key:
+                return {"statusCode": 400, "body": json.dumps("Missing TableName or Key data.")}
+
+            print(f"Using table: {table_name}")  # Debugging
+            table = dynamodb.Table(table_name)
+
+            response = table.get_item(Key=key)
+            item = response.get("Item", None)
+
+            if item:
+                return {"statusCode": 200, "body": json.dumps(item)}
+            else:
+                return {"statusCode": 404, "body": json.dumps("Item not found.")}
+
         else:
-            return {"statusCode": 400, "body": json.dumps("Unsupported operation. Use 'create'.")}
+            return {"statusCode": 400, "body": json.dumps("Unsupported operation. Use 'create' or 'get'.")}
 
     except Exception as e:
         return {"statusCode": 500, "body": json.dumps(f"Error: {str(e)}")}
