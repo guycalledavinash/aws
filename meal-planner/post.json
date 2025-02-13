@@ -1,0 +1,9 @@
+{
+  "operation": "get",
+  "payload": {
+    "TableName": "meal-planner",
+    "Key": {
+      "RecipeID": "12345"
+    }
+  }
+}
