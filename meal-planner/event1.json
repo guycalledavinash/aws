@@ -1,0 +1,17 @@
+{
+  "operation": "create",
+  "payload": {
+    "TableName": "meal-planner",
+    "Item": {
+      "RecipeID": "12345",
+      "Name": "Grilled Cheese",
+      "Ingredients": ["bread", "cheese", "butter"],
+      "Instructions": "Butter bread, add cheese, grill for 2 minutes.",
+      "Location": "USA",
+      "Hobbies": {
+        "Act1": "Cooking",
+        "Act2": "Photography"
+      }
+    }
+  }
+}
