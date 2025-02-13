@@ -11,3 +11,6 @@
 ✅Lambda – Processes inputs, fetches recipes and interacts with the model.
 
 ✅DynamoDB – Stores user preferences, any restrictions and their meal history.
+
+
+![11](https://github.com/user-attachments/assets/cc25a291-92cf-44e6-861d-9bcc7ff87ff6)
