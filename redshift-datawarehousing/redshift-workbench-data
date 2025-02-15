@@ -1,1 +1,58 @@
+CREATE TABLE Cars (
+    CarID INT PRIMARY KEY,
+    ModelName VARCHAR(50),
+    Manufacturer VARCHAR(50),
+    Year INT,
+    Color VARCHAR(20),
+    Price DECIMAL(10, 2)
+);
 
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    City VARCHAR(50),
+    State VARCHAR(50)
+);
+
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    CarID INT,
+    CustomerID INT,
+    SaleDate DATE,
+    SaleAmount DECIMAL(10, 2),
+    PaymentMethod VARCHAR(20),
+    FOREIGN KEY (CarID) REFERENCES Cars(CarID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+CREATE TABLE Dealers (
+    DealerID INT PRIMARY KEY,
+    DealerName VARCHAR(100),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    ContactPerson VARCHAR(50),
+    Phone VARCHAR(15)
+);
+
+CREATE TABLE Inventory (
+    InventoryID INT PRIMARY KEY,
+    CarID INT,
+    DealerID INT,
+    StockQuantity INT,
+    LastStockUpdate DATE,
+    FOREIGN KEY (CarID) REFERENCES Cars(CarID),
+    FOREIGN KEY (DealerID) REFERENCES Dealers(DealerID)
+);
+
+CREATE TABLE ServiceRecords (
+    ServiceID INT PRIMARY KEY,
+    CarID INT,
+    ServiceDate DATE,
+    ServiceType VARCHAR(50),
+    Cost DECIMAL(10, 2),
+    DealerID INT,
+    FOREIGN KEY (CarID) REFERENCES Cars(CarID),
+    FOREIGN KEY (DealerID) REFERENCES Dealers(DealerID)
+);
