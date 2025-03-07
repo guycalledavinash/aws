@@ -21,3 +21,5 @@ OIDC (OpenID Connect) for enabling IAM roles for service accounts
 ![Screenshot 2025-03-06 215633](https://github.com/user-attachments/assets/c25a22bc-e4a9-4fed-9a12-cb81a1a81552)
 
 ![Screenshot 2025-03-06 215930](https://github.com/user-attachments/assets/959e888e-0b0e-4463-aa7c-6c5ac809c5f4)
+
+![Screenshot 2025-03-06 215640](https://github.com/user-attachments/assets/49bb268a-3a79-4312-a349-5a745632ad74)
