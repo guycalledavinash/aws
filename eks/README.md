@@ -1,25 +1,60 @@
-## Microservices Application Deployed to EKS Cluster
+## Voting application on EKS
 
-In my recent POC, I containerized a 3-tier, microservice architecture application and deployed to EKS cluster using the attached manifests.
+This directory contains Kubernetes manifests for the voting application, Redis, and PostgreSQL.
 
-Front end is written in Python and Node
+### Prerequisites
 
-Worker in .NET
+- An EKS cluster and a configured `kubectl` context for the target namespace.
+- A default StorageClass that provisions persistent block storage, or configure the PVC with an appropriate StorageClass before deploying.
+- On EKS, EBS-backed PVCs require the AWS EBS CSI driver and its required IAM permissions. The existing claim requests `ReadWriteOnce` storage. With no `storageClassName` set, Kubernetes uses the default StorageClass.
+- The `postgres-credentials` Secret described below must exist in the namespace before the PostgreSQL Deployment is created.
 
-Redis for cache memory
+Kubernetes Secret objects are not encrypted merely because they are Secrets; values are base64-encoded in the API representation. Restrict access with least-privilege RBAC, and configure encryption at rest (for example, EKS envelope encryption with AWS KMS) when required by your security policy.
 
-And PostgreSQL for DB, along with persistent volume for backup
+### Create the PostgreSQL Secret
 
-OIDC (OpenID Connect) for enabling IAM roles for service accounts
+Create the values file outside the repository, using a secure local editor. Do not paste a password into a command or commit the file. The file should contain the keys `username` and `password`, each assigned its locally chosen value.
 
-![Screenshot 2025-03-06 212002](https://github.com/user-attachments/assets/575fb39c-6649-4c59-a364-e7269d9add3b)
+On macOS or Linux:
 
-![Screenshot 2025-03-06 215735](https://github.com/user-attachments/assets/94d10c2e-bef3-49f4-9c3c-88af9bf3ec17)
+```sh
+umask 077
+SECRET_FILE="$(mktemp)"
+"${EDITOR:-vi}" "$SECRET_FILE"
+# Enter username=... and password=... in the editor, then save and exit.
+kubectl create secret generic postgres-credentials \
+  --from-env-file="$SECRET_FILE" --dry-run=client -o yaml |
+  kubectl apply -f -
+rm -f "$SECRET_FILE"
+unset SECRET_FILE
+```
 
-![Screenshot 2025-03-06 215500](https://github.com/user-attachments/assets/e11581cc-6a8c-45fe-ab06-3979743cf155)
+The local file is created with owner-only permissions by `umask 077`. Remove it after creating the Secret, and ensure shell history or editor backups do not retain sensitive values. The Deployment reads the Secret's `username` and `password` keys as `POSTGRES_USER` and `POSTGRES_PASSWORD`.
 
-![Screenshot 2025-03-06 215633](https://github.com/user-attachments/assets/c25a22bc-e4a9-4fed-9a12-cb81a1a81552)
+### Deploy and verify
 
-![Screenshot 2025-03-06 215930](https://github.com/user-attachments/assets/959e888e-0b0e-4463-aa7c-6c5ac809c5f4)
+Create the Secret first, then apply the manifests:
 
-![Screenshot 2025-03-06 215640](https://github.com/user-attachments/assets/49bb268a-3a79-4312-a349-5a745632ad74)
+```sh
+kubectl apply -f eks/deployment.yaml
+kubectl get pods
+kubectl get pvc postgres-pv-claim
+kubectl describe pvc postgres-pv-claim
+kubectl rollout status deployment/db
+kubectl rollout status deployment/redis
+```
+
+Check readiness and recent probe or storage errors:
+
+```sh
+kubectl get pods -o wide
+kubectl describe pod -l app=db
+kubectl describe pod -l app=redis
+kubectl get events --sort-by=.lastTimestamp
+```
+
+The PostgreSQL PVC should reach `Bound`; the PostgreSQL and Redis pods should become `Ready`. If the claim remains `Pending`, check that a suitable default StorageClass and EBS CSI provisioner are available in the cluster.
+
+The PostgreSQL probes call `pg_isready` with the configured `POSTGRES_USER`. Redis probes use `redis-cli ping`. No health probes are added to the application containers.
+
+These instructions describe the intended setup only. The manifest changes have not been applied to a live EKS cluster, and no AWS resources were created or inspected.

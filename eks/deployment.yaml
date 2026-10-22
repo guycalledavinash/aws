@@ -37,6 +37,20 @@ spec:
         ports:
         - containerPort: 6379
           name: redis
+        readinessProbe:
+          exec:
+            command: ["redis-cli", "ping"]
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command: ["redis-cli", "ping"]
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
 
 # db
 ---
@@ -78,18 +92,39 @@ spec:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_USER
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: username
         - name: POSTGRES_PASSWORD
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
         ports:
         - containerPort: 5432
           name: db
+        readinessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "pg_isready -U \"$POSTGRES_USER\" -d postgres"]
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        livenessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "pg_isready -U \"$POSTGRES_USER\" -d postgres"]
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
         volumeMounts:
         - name: db-data
           mountPath: /var/lib/postgresql/data
       volumes:
       - name: db-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
