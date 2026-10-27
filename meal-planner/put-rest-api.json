@@ -1,7 +1,6 @@
 {
   "operation": "create",
   "payload": {
-    "TableName": "meal-planner",
     "Item": {
       "RecipeID": "12345",
       "Name": "Grilled Cheese",
