@@ -42,7 +42,7 @@ def _validate_event(event):
         raise RequestValidationError("Event must be a JSON object.")
 
     operation = event.get("operation")
-    if operation not in {"create", "get"}:
+    if not isinstance(operation, str) or operation not in {"create", "get"}:
         raise RequestValidationError("Unsupported operation. Use 'create' or 'get'.")
 
     payload = event.get("payload")
@@ -94,9 +94,10 @@ def lambda_handler(event, context, dynamodb_resource=None):
     try:
         operation, value = _validate_event(event)
     except RequestValidationError as exc:
+        log_operation = operation if operation in {"create", "get"} else "invalid"
         logger.info(
             "Request rejected operation=%s request_id=%s category=validation",
-            operation,
+            log_operation,
             request_id,
         )
         return _response(400, {"message": str(exc)})
