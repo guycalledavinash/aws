@@ -78,6 +78,7 @@ class LambdaHandlerTests(unittest.TestCase):
             [],
             {},
             {"operation": "delete", "payload": {}},
+            {"operation": [], "payload": {}},
             {"operation": "create"},
             {"operation": "get", "payload": []},
         ]
