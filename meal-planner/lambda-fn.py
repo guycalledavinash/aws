@@ -94,7 +94,7 @@ def lambda_handler(event, context, dynamodb_resource=None):
     try:
         operation, value = _validate_event(event)
     except RequestValidationError as exc:
-        log_operation = operation if operation in {"create", "get"} else "invalid"
+        log_operation = operation if isinstance(operation, str) and operation in {"create", "get"} else "invalid"
         logger.info(
             "Request rejected operation=%s request_id=%s category=validation",
             log_operation,
