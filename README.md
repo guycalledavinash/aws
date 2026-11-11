@@ -19,3 +19,19 @@ The script can be tested offline with the mocked-curl test harness:
 ```bash
 bash tests/test-route53-monitor.sh
 ```
+
+## EC2 User Data – Nginx Installation
+
+EC2 user data runs bootstrap commands when an instance launches. Use `userdata.sh` as the user-data script when launching an Ubuntu EC2 instance; EC2 runs it during instance initialization to update packages, install Nginx, and write the custom homepage.
+
+After connecting to the instance, verify that Nginx is running:
+
+```bash
+sudo systemctl status nginx
+```
+
+If the bootstrap fails, inspect the cloud-init output log:
+
+```text
+/var/log/cloud-init-output.log
+```
